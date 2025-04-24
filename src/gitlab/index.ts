@@ -55,7 +55,7 @@ const server = new Server({
   }
 });
 
-const GITLAB_PERSONAL_ACCESS_TOKEN = process.env.GITLAB_PERSONAL_ACCESS_TOKEN;
+const GITLAB_PERSONAL_ACCESS_TOKEN = process.env.GITLAB_PERSONAL_ACCESS_TOKEN as string;
 const GITLAB_API_URL = process.env.GITLAB_API_URL || 'https://gitlab.com/api/v4';
 
 if (!GITLAB_PERSONAL_ACCESS_TOKEN) {
@@ -73,7 +73,7 @@ async function forkProject(
   const response = await fetch(url + queryParams, {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${GITLAB_PERSONAL_ACCESS_TOKEN}`,
+      "PRIVATE-TOKEN": GITLAB_PERSONAL_ACCESS_TOKEN,
       "Content-Type": "application/json"
     }
   });
@@ -94,7 +94,7 @@ async function createBranch(
     {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${GITLAB_PERSONAL_ACCESS_TOKEN}`,
+        "PRIVATE-TOKEN": GITLAB_PERSONAL_ACCESS_TOKEN,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -126,7 +126,7 @@ async function getFileContents(
 
   const response = await fetch(url, {
     headers: {
-      "Authorization": `Bearer ${GITLAB_PERSONAL_ACCESS_TOKEN}`
+      "PRIVATE-TOKEN": GITLAB_PERSONAL_ACCESS_TOKEN
     }
   });
 
@@ -152,7 +152,7 @@ async function createIssue(
     {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${GITLAB_PERSONAL_ACCESS_TOKEN}`,
+        "PRIVATE-TOKEN": GITLAB_PERSONAL_ACCESS_TOKEN,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -181,7 +181,7 @@ async function createMergeRequest(
     {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${GITLAB_PERSONAL_ACCESS_TOKEN}`,
+        "PRIVATE-TOKEN": GITLAB_PERSONAL_ACCESS_TOKEN,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -232,7 +232,7 @@ async function createOrUpdateFile(
   const response = await fetch(url, {
     method,
     headers: {
-      "Authorization": `Bearer ${GITLAB_PERSONAL_ACCESS_TOKEN}`,
+      "PRIVATE-TOKEN": GITLAB_PERSONAL_ACCESS_TOKEN,
       "Content-Type": "application/json"
     },
     body: JSON.stringify(body)
@@ -255,7 +255,7 @@ async function createTree(
     {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${GITLAB_PERSONAL_ACCESS_TOKEN}`,
+        "PRIVATE-TOKEN": GITLAB_PERSONAL_ACCESS_TOKEN,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -286,7 +286,7 @@ async function createCommit(
     {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${GITLAB_PERSONAL_ACCESS_TOKEN}`,
+        "PRIVATE-TOKEN": GITLAB_PERSONAL_ACCESS_TOKEN,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -320,7 +320,7 @@ async function searchProjects(
 
   const response = await fetch(url.toString(), {
     headers: {
-      "Authorization": `Bearer ${GITLAB_PERSONAL_ACCESS_TOKEN}`
+      "PRIVATE-TOKEN": GITLAB_PERSONAL_ACCESS_TOKEN
     }
   });
 
@@ -341,7 +341,7 @@ async function createRepository(
   const response = await fetch(`${GITLAB_API_URL}/projects`, {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${GITLAB_PERSONAL_ACCESS_TOKEN}`,
+      "PRIVATE-TOKEN": GITLAB_PERSONAL_ACCESS_TOKEN,
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
